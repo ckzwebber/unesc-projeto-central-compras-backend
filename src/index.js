@@ -23,6 +23,7 @@ const app = express();
 const port = Number(process.env.PORT || 3000);
 const corsOrigin = process.env.CORS_ORIGIN || "http://localhost:3001";
 const swaggerServerUrl = process.env.SWAGGER_SERVER_URL || `http://localhost:${port}`;
+const trustProxyEnv = process.env.TRUST_PROXY;
 const apiRateLimitWindowMs = Number(process.env.RATE_LIMIT_WINDOW_MS || 60_000);
 const apiRateLimitMaxRequests = Number(process.env.RATE_LIMIT_MAX_REQUESTS || 120);
 const rateLimitSkipGet = String(process.env.RATE_LIMIT_SKIP_GET || "true").toLowerCase() === "true";
@@ -31,6 +32,19 @@ const authRateLimitMaxRequests = Number(process.env.AUTH_RATE_LIMIT_MAX_REQUESTS
 
 if (!process.env.JWT_SECRET) {
   throw new Error("JWT_SECRET não configurado. Defina a variável de ambiente antes de iniciar a API.");
+}
+
+if (trustProxyEnv === "true") {
+  app.set("trust proxy", true);
+} else if (trustProxyEnv === "false") {
+  app.set("trust proxy", false);
+} else if (typeof trustProxyEnv === "string" && trustProxyEnv.trim() !== "") {
+  const trustProxyHops = Number(trustProxyEnv);
+  if (!Number.isNaN(trustProxyHops)) {
+    app.set("trust proxy", trustProxyHops);
+  }
+} else if (process.env.NODE_ENV === "production") {
+  app.set("trust proxy", 1);
 }
 
 const swaggerOptions = {
