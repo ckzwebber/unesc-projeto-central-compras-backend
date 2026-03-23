@@ -6,7 +6,7 @@ const swaggerJSDoc = require("swagger-jsdoc");
 const rateLimit = require("express-rate-limit");
 
 const errorHandler = require("./middlewares/errorHandler.js");
-const AppError = require("./errors/AppError.js");
+const AppError = require("./errors/appError.js");
 
 const fornecedoresRoutes = require("./routes/fornecedoresRoutes.js");
 const produtosRoutes = require("./routes/produtosRoutes.js");
