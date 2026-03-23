@@ -6,12 +6,14 @@ const Fornecedor = require("../entities/fornecedor");
 const AppError = require("../errors/appError");
 const DefaultResponseDto = require("../dtos/defaultResponse.dto");
 const { createFornecedorSchema, updateFornecedorSchema, uuidSchema, cnpjSchema } = require("../validations/fornecedorValidation");
+const instrumentService = require("../lib/instrumentService");
 
 class FornecedoresService {
   constructor() {
     this.fornecedoresModel = new FornecedoresModel();
     this.produtosService = new ProdutosService();
     this.pedidosService = new PedidosService();
+    instrumentService(this, "fornecedor");
   }
 
   async getAll() {
@@ -26,7 +28,7 @@ class FornecedoresService {
         fornecedorData.usuario_id,
         fornecedorData.criado_em,
         fornecedorData.atualizado_em,
-        fornecedorData.deletado_em
+        fornecedorData.deletado_em,
       );
       return fornecedor.toPublic();
     });
@@ -53,7 +55,7 @@ class FornecedoresService {
       fornecedorData.usuario_id,
       fornecedorData.criado_em,
       fornecedorData.atualizado_em,
-      fornecedorData.deletado_em
+      fornecedorData.deletado_em,
     );
 
     return new DefaultResponseDto(true, "Fornecedor recuperado com sucesso", fornecedor.toPublic());
@@ -76,7 +78,7 @@ class FornecedoresService {
         fornecedorData.usuario_id,
         fornecedorData.criado_em,
         fornecedorData.atualizado_em,
-        fornecedorData.deletado_em
+        fornecedorData.deletado_em,
       );
       return fornecedor.toPublic();
     });
@@ -102,7 +104,7 @@ class FornecedoresService {
       fornecedorData.usuario_id,
       fornecedorData.criado_em,
       fornecedorData.atualizado_em,
-      fornecedorData.deletado_em
+      fornecedorData.deletado_em,
     );
 
     return new DefaultResponseDto(true, "Fornecedor recuperado com sucesso", fornecedor.toPublic());
@@ -146,7 +148,7 @@ class FornecedoresService {
       fornecedorData.usuario_id,
       fornecedorData.criado_em,
       fornecedorData.atualizado_em,
-      fornecedorData.deletado_em
+      fornecedorData.deletado_em,
     );
 
     return fornecedorCreated.toPublic();
@@ -214,7 +216,7 @@ class FornecedoresService {
       fornecedorData.usuario_id,
       fornecedorData.criado_em,
       fornecedorData.atualizado_em,
-      fornecedorData.deletado_em
+      fornecedorData.deletado_em,
     );
 
     return new DefaultResponseDto(true, "Fornecedor atualizado com sucesso", fornecedorUpdated.toPublic());

@@ -1,4 +1,5 @@
 const database = require("../../db/database");
+const logger = require("../lib/logger");
 
 class EnderecosModel {
   constructor() {
@@ -14,7 +15,7 @@ class EnderecosModel {
       const result = await database.query(query);
       return result.rows;
     } catch (error) {
-      console.error("Erro ao buscar endereços:", error);
+      logger.error({ err: error, entity: "endereco" }, "Erro ao buscar endereços:");
       throw error;
     }
   }
@@ -28,7 +29,7 @@ class EnderecosModel {
       const result = await database.query(query);
       return result.rows[0] || null;
     } catch (error) {
-      console.error("Erro ao buscar endereço por ID:", error);
+      logger.error({ err: error, entity: "endereco" }, "Erro ao buscar endereço por ID:");
       throw error;
     }
   }
@@ -47,7 +48,7 @@ class EnderecosModel {
       const result = await database.query(query);
       return result.rows;
     } catch (error) {
-      console.error("Erro ao buscar endereço por CEP:", error);
+      logger.error({ err: error, entity: "endereco" }, "Erro ao buscar endereço por CEP:");
       throw error;
     }
   }
@@ -65,7 +66,7 @@ class EnderecosModel {
       const result = await database.query(query);
       return result.rows;
     } catch (error) {
-      console.error("Erro ao buscar endereços por cidade/estado:", error);
+      logger.error({ err: error, entity: "endereco" }, "Erro ao buscar endereços por cidade/estado:");
       throw error;
     }
   }
@@ -82,7 +83,7 @@ class EnderecosModel {
       const result = await database.query(query);
       return result.rows[0];
     } catch (error) {
-      console.error("Erro ao criar endereço:", error);
+      logger.error({ err: error, entity: "endereco" }, "Erro ao criar endereço:");
       throw error;
     }
   }
@@ -104,7 +105,7 @@ class EnderecosModel {
       const result = await database.query(query);
       return result.rows[0] || null;
     } catch (error) {
-      console.error("Erro ao atualizar endereço:", error);
+      logger.error({ err: error, entity: "endereco" }, "Erro ao atualizar endereço:");
       throw error;
     }
   }
@@ -120,7 +121,7 @@ class EnderecosModel {
       const result = await database.query(query);
       return result.rowCount > 0;
     } catch (error) {
-      console.error("Erro ao deletar endereço:", error);
+      logger.error({ err: error, entity: "endereco" }, "Erro ao deletar endereço:");
       throw error;
     }
   }
@@ -134,7 +135,7 @@ class EnderecosModel {
       const result = await database.query(query);
       return result.rows[0].exists;
     } catch (error) {
-      console.error("Erro ao verificar existência de endereço:", error);
+      logger.error({ err: error, entity: "endereco" }, "Erro ao verificar existência de endereço:");
       throw error;
     }
   }

@@ -1,4 +1,5 @@
 const PedidosService = require("../services/pedidosService");
+const logger = require("../lib/logger");
 
 class PedidosController {
   constructor() {
@@ -34,12 +35,31 @@ class PedidosController {
   }
 
   async create(req, res) {
+    logger.info(
+      {
+        userId: req.user?.id,
+        role: req.user?.funcao,
+        entity: "pedido",
+        action: "create",
+      },
+      "Inicio da criacao de pedido",
+    );
     const response = await this.pedidosService.create(req.body, req.user.id);
     res.status(201).json(response);
   }
 
   async update(req, res) {
     const { id } = req.params;
+    logger.info(
+      {
+        userId: req.user?.id,
+        role: req.user?.funcao,
+        entity: "pedido",
+        entityId: id,
+        action: "update",
+      },
+      "Inicio da atualizacao de pedido",
+    );
     const response = await this.pedidosService.update(id, req.body, req.user.id);
     res.status(200).json(response);
   }
@@ -48,13 +68,34 @@ class PedidosController {
     const { id } = req.params;
     const { status } = req.body;
     const fornecedorId = req.user.fornecedorId;
-    
+
+    logger.info(
+      {
+        userId: req.user?.id,
+        role: req.user?.funcao,
+        entity: "pedido",
+        entityId: id,
+        action: "update-status",
+      },
+      "Inicio da atualizacao de status de pedido",
+    );
+
     const response = await this.pedidosService.updateStatus(id, status, fornecedorId);
     res.status(200).json(response);
   }
 
   async delete(req, res) {
     const { id } = req.params;
+    logger.info(
+      {
+        userId: req.user?.id,
+        role: req.user?.funcao,
+        entity: "pedido",
+        entityId: id,
+        action: "delete",
+      },
+      "Inicio da exclusao de pedido",
+    );
     const response = await this.pedidosService.delete(id, req.user.id);
     res.status(200).json(response);
   }

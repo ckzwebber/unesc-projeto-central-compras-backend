@@ -10,6 +10,7 @@ const AppError = require("../errors/appError");
 const DefaultResponseDto = require("../dtos/defaultResponse.dto");
 const { v4: uuidv4 } = require("uuid");
 const { createPedidoSchema, updatePedidoSchema, uuidSchema, statusSchema, dateSchema } = require("../validations/pedidoValidation");
+const instrumentService = require("../lib/instrumentService");
 
 class PedidosService {
   constructor() {
@@ -20,6 +21,7 @@ class PedidosService {
     this.campanhasModel = new CampanhasModel();
     this.condicaoComercialModel = new CondicaoComercialModel();
     this.enderecosModel = new EnderecosModel();
+    instrumentService(this, "pedido");
   }
 
   async getAll() {
@@ -36,7 +38,7 @@ class PedidosService {
           ...pedido,
           itens: itens,
         };
-      })
+      }),
     );
 
     return new DefaultResponseDto(true, "Pedidos encontrados com sucesso", pedidosComItens);
@@ -82,7 +84,7 @@ class PedidosService {
           ...pedido,
           itens: itens,
         };
-      })
+      }),
     );
 
     return new DefaultResponseDto(true, "Pedidos encontrados com sucesso", pedidosComItens);
@@ -107,7 +109,7 @@ class PedidosService {
           ...pedido,
           itens: itens,
         };
-      })
+      }),
     );
 
     return new DefaultResponseDto(true, "Pedidos encontrados com sucesso", pedidosComItens);
@@ -132,7 +134,7 @@ class PedidosService {
           ...pedido,
           itens: itens,
         };
-      })
+      }),
     );
 
     return new DefaultResponseDto(true, "Pedidos encontrados com sucesso", pedidosComItens);
@@ -204,7 +206,7 @@ class PedidosService {
         campanhaRaw.fornecedor_id,
         campanhaRaw.criado_em,
         campanhaRaw.atualizado_em,
-        campanhaRaw.deletado_em
+        campanhaRaw.deletado_em,
       );
 
       if (campanha.podeAplicar(valorOriginal, quantidadeTotal)) {
@@ -439,7 +441,7 @@ class PedidosService {
           ...pedido,
           itens: itens,
         };
-      })
+      }),
     );
 
     return new DefaultResponseDto(true, "Pedidos recuperados com sucesso", pedidosComItens);

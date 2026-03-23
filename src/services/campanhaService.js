@@ -3,10 +3,12 @@ const DefaultResponseDto = require("../dtos/defaultResponse.dto");
 const AppError = require("../errors/appError");
 const { v4: uuidv4 } = require("uuid");
 const { createCampanhaSchema, updateCampanhaSchema, uuidSchema, statusSchema } = require("../validations/campanhaValidation");
+const instrumentService = require("../lib/instrumentService");
 
 class CampanhasService {
   constructor() {
     this.campanhasModel = new CampanhasModel();
+    instrumentService(this, "campanha");
   }
 
   async getAll() {

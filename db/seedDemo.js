@@ -1,6 +1,7 @@
 const dotenv = require("dotenv");
 const bcrypt = require("bcrypt");
 const { v4: uuidv4 } = require("uuid");
+const logger = require("../src/lib/logger");
 const database = require("./database");
 
 dotenv.config();
@@ -625,17 +626,23 @@ async function seedDemo() {
 
 seedDemo()
   .then((result) => {
-    console.log("Seed demo concluído com sucesso.");
+    logger.info({ entity: "seed", action: "demo" }, "Seed demo concluido com sucesso");
     if (shouldResetBeforeSeed) {
-      console.log("Banco resetado antes do seed.");
+      logger.info({ entity: "seed", action: "reset-before-demo" }, "Banco resetado antes do seed");
     }
-    console.log(`Admin: ${result.admin}`);
-    console.log(`Fornecedor: ${result.supplier}`);
-    console.log(`Usuario loja: ${result.store}`);
-    console.log(`Senha padrão: ${result.password}`);
+    logger.info(
+      {
+        entity: "seed",
+        action: "demo-summary",
+        admin: result.admin,
+        supplier: result.supplier,
+        store: result.store,
+      },
+      "Usuarios de demo criados",
+    );
     process.exit(0);
   })
   .catch((error) => {
-    console.error("Erro ao executar seed demo:", error);
+    logger.error({ err: error, entity: "seed", action: "demo" }, "Erro ao executar seed demo");
     process.exit(1);
   });

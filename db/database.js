@@ -1,4 +1,5 @@
 const { Client } = require("pg");
+const logger = require("../src/lib/logger");
 
 async function query(queryObject) {
   let client;
@@ -8,7 +9,14 @@ async function query(queryObject) {
     const result = await client.query(queryObject);
     return result;
   } catch (error) {
-    console.error(error);
+    logger.error(
+      {
+        err: error,
+        entity: "database",
+        action: "query",
+      },
+      "Falha ao executar query no banco de dados",
+    );
     throw error;
   } finally {
     await client?.end();

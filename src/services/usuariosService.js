@@ -8,6 +8,7 @@ const dotenv = require("dotenv");
 const { v4: uuidv4 } = require("uuid");
 const Joi = require("joi");
 const { createUsuarioSchema, loginSchema, updateUsuarioSchema, updatePasswordSchema, uuidSchema } = require("../validations/usuarioValidation");
+const instrumentService = require("../lib/instrumentService");
 
 dotenv.config();
 
@@ -23,6 +24,7 @@ class UsuariosService {
 
     this.usuariosModel = new UsuariosModel();
     this.enderecosService = new EnderecosService();
+    instrumentService(this, "usuario");
   }
 
   createAccessToken(usuario) {

@@ -31,8 +31,13 @@
     "joi": "^18.0.1",
     "jsonwebtoken": "^9.0.2",
     "pg": "^8.16.3",
+    "pino": "^10.3.1",
+    "pino-http": "^11.0.0",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1",
     "uuid": "^13.0.0"
+  },
+  "devDependencies": {
+    "pino-pretty": "^13.1.3"
   }
 }

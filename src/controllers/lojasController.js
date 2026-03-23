@@ -1,4 +1,5 @@
 const LojasService = require("../services/lojasService");
+const logger = require("../lib/logger");
 
 class LojasController {
   constructor() {
@@ -28,18 +29,47 @@ class LojasController {
   }
 
   async create(req, res) {
+    logger.info(
+      {
+        userId: req.user?.id,
+        role: req.user?.funcao,
+        entity: "loja",
+        action: "create",
+      },
+      "Inicio da criacao de loja",
+    );
     const result = await this.lojasService.create(req.body);
     res.status(201).json(result);
   }
 
   async update(req, res) {
     const { id } = req.params;
+    logger.info(
+      {
+        userId: req.user?.id,
+        role: req.user?.funcao,
+        entity: "loja",
+        entityId: id,
+        action: "update",
+      },
+      "Inicio da atualizacao de loja",
+    );
     const result = await this.lojasService.update(id, req.body, req.user.id, req.user.funcao);
     res.status(200).json(result);
   }
 
   async delete(req, res) {
     const { id } = req.params;
+    logger.info(
+      {
+        userId: req.user?.id,
+        role: req.user?.funcao,
+        entity: "loja",
+        entityId: id,
+        action: "delete",
+      },
+      "Inicio da exclusao de loja",
+    );
     const result = await this.lojasService.delete(id, req.user.id, req.user.funcao);
     res.status(200).json(result);
   }

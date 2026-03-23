@@ -3,6 +3,7 @@ const FornecedoresModel = require("../models/fornecedoresModel");
 const DefaultResponseDto = require("../dtos/defaultResponse.dto");
 const AppError = require("../errors/appError");
 const { createProdutoSchema, updateProdutoSchema, uuidSchema, nomeSchema } = require("../validations/produtoValidation");
+const instrumentService = require("../lib/instrumentService");
 
 const { v4: uuidv4 } = require("uuid");
 
@@ -10,6 +11,7 @@ class ProdutosService {
   constructor() {
     this.produtosModel = new ProdutosModel();
     this.fornecedoresModel = new FornecedoresModel();
+    instrumentService(this, "produto");
   }
 
   async getFornecedorIdByUsuarioId(usuarioId) {

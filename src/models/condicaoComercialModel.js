@@ -1,4 +1,5 @@
 const database = require("../../db/database");
+const logger = require("../lib/logger");
 
 class CondicaoComercialModel {
   constructor() {
@@ -14,7 +15,7 @@ class CondicaoComercialModel {
       const result = await database.query(query);
       return result.rows;
     } catch (error) {
-      console.error("Erro ao buscar condições comerciais:", error);
+      logger.error({ err: error, entity: "condicaoComercial" }, "Erro ao buscar condições comerciais:");
       throw error;
     }
   }
@@ -28,7 +29,7 @@ class CondicaoComercialModel {
       const result = await database.query(query);
       return result.rows[0] || null;
     } catch (error) {
-      console.error("Erro ao buscar condição comercial por ID:", error);
+      logger.error({ err: error, entity: "condicaoComercial" }, "Erro ao buscar condição comercial por ID:");
       throw error;
     }
   }
@@ -42,7 +43,7 @@ class CondicaoComercialModel {
       const result = await database.query(query);
       return result.rows[0] || null;
     } catch (error) {
-      console.error("Erro ao buscar condição comercial por UF:", error);
+      logger.error({ err: error, entity: "condicaoComercial" }, "Erro ao buscar condição comercial por UF:");
       throw error;
     }
   }
@@ -58,7 +59,7 @@ class CondicaoComercialModel {
       const result = await database.query(query);
       return result.rows[0];
     } catch (error) {
-      console.error("Erro ao criar condição comercial:", error);
+      logger.error({ err: error, entity: "condicaoComercial" }, "Erro ao criar condição comercial:");
       throw error;
     }
   }
@@ -96,7 +97,7 @@ class CondicaoComercialModel {
       const result = await database.query(query);
       return result.rows[0];
     } catch (error) {
-      console.error("Erro ao atualizar condição comercial:", error);
+      logger.error({ err: error, entity: "condicaoComercial" }, "Erro ao atualizar condição comercial:");
       throw error;
     }
   }
@@ -113,7 +114,7 @@ class CondicaoComercialModel {
       const result = await database.query(query);
       return result.rows[0];
     } catch (error) {
-      console.error("Erro ao deletar condição comercial:", error);
+      logger.error({ err: error, entity: "condicaoComercial" }, "Erro ao deletar condição comercial:");
       throw error;
     }
   }

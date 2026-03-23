@@ -1,4 +1,5 @@
 const ProdutosService = require("../services/produtosService");
+const logger = require("../lib/logger");
 const produtosService = new ProdutosService();
 
 class ProdutosController {
@@ -21,6 +22,15 @@ class ProdutosController {
 
   async create(req, res) {
     const produto = req.body;
+    logger.info(
+      {
+        userId: req.user?.id,
+        role: req.user?.funcao,
+        entity: "produto",
+        action: "create",
+      },
+      "Inicio da criacao de produto",
+    );
     const response = await produtosService.create(produto, req.user);
     res.status(201).json(response);
   }
@@ -28,12 +38,32 @@ class ProdutosController {
   async update(req, res) {
     const { id } = req.params;
     const produto = req.body;
+    logger.info(
+      {
+        userId: req.user?.id,
+        role: req.user?.funcao,
+        entity: "produto",
+        entityId: id,
+        action: "update",
+      },
+      "Inicio da atualizacao de produto",
+    );
     const response = await produtosService.update(id, produto, req.user);
     res.status(200).json(response);
   }
 
   async delete(req, res) {
     const { id } = req.params;
+    logger.info(
+      {
+        userId: req.user?.id,
+        role: req.user?.funcao,
+        entity: "produto",
+        entityId: id,
+        action: "delete",
+      },
+      "Inicio da exclusao de produto",
+    );
     const response = await produtosService.delete(id, req.user);
     res.status(200).json(response);
   }

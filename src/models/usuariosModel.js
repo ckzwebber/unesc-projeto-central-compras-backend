@@ -1,4 +1,5 @@
 const database = require("../../db/database");
+const logger = require("../lib/logger");
 
 class UsuariosModel {
   constructor() {
@@ -14,7 +15,7 @@ class UsuariosModel {
       const result = await database.query(query);
       return result.rows;
     } catch (error) {
-      console.error("Erro ao buscar usuários:", error);
+      logger.error({ err: error, entity: "usuario" }, "Erro ao buscar usuários:");
       throw error;
     }
   }
@@ -28,7 +29,7 @@ class UsuariosModel {
       const result = await database.query(query);
       return result.rows[0] || null;
     } catch (error) {
-      console.error("Erro ao buscar usuário por ID:", error);
+      logger.error({ err: error, entity: "usuario" }, "Erro ao buscar usuário por ID:");
       throw error;
     }
   }
@@ -42,7 +43,7 @@ class UsuariosModel {
       const result = await database.query(query);
       return result.rows[0] || null;
     } catch (error) {
-      console.error("Erro ao buscar usuário por email:", error);
+      logger.error({ err: error, entity: "usuario" }, "Erro ao buscar usuário por email:");
       throw error;
     }
   }
@@ -70,7 +71,7 @@ class UsuariosModel {
       const result = await database.query(query);
       return result.rows[0];
     } catch (error) {
-      console.error("Erro ao criar usuário:", error);
+      logger.error({ err: error, entity: "usuario" }, "Erro ao criar usuário:");
       throw error;
     }
   }
@@ -89,7 +90,7 @@ class UsuariosModel {
       const result = await database.query(query);
       return result.rows[0] || null;
     } catch (error) {
-      console.error("Erro ao atualizar usuário:", error);
+      logger.error({ err: error, entity: "usuario" }, "Erro ao atualizar usuário:");
       throw error;
     }
   }
@@ -103,7 +104,7 @@ class UsuariosModel {
       const result = await database.query(query);
       return result.rowCount > 0;
     } catch (error) {
-      console.error("Erro ao deletar usuário:", error);
+      logger.error({ err: error, entity: "usuario" }, "Erro ao deletar usuário:");
       throw error;
     }
   }

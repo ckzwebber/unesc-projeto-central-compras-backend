@@ -6,7 +6,10 @@ const swaggerJSDoc = require("swagger-jsdoc");
 const rateLimit = require("express-rate-limit");
 
 const errorHandler = require("./middlewares/errorHandler.js");
+const requestLogger = require("./middlewares/requestLogger.js");
 const AppError = require("./errors/appError.js");
+const logger = require("./lib/logger.js");
+const database = require("../db/database.js");
 
 const fornecedoresRoutes = require("./routes/fornecedoresRoutes.js");
 const produtosRoutes = require("./routes/produtosRoutes.js");
@@ -81,6 +84,7 @@ app.use(
   }),
 );
 app.use(express.json());
+app.use(requestLogger);
 
 const apiLimiter = rateLimit({
   windowMs: apiRateLimitWindowMs,
@@ -114,6 +118,14 @@ app.get("/", (req, res) => {
   res.send("Projeto Central de Compras!");
 });
 
+app.get("/health", (req, res) => {
+  res.status(200).json({
+    success: true,
+    message: "ok",
+    data: null,
+  });
+});
+
 app.use("/fornecedores", fornecedoresRoutes);
 app.use("/produtos", produtosRoutes);
 app.use("/usuarios", usuariosRoutes);
@@ -128,7 +140,19 @@ app.use((req, res, next) => {
 });
 app.use(errorHandler);
 
-app.listen(port, () => {
-  console.log(`Projeto Central de Compras está rodando em: http://localhost:${port}`);
-  console.log(`Documentação da API disponível em: http://localhost:${port}/docs`);
-});
+async function bootstrap() {
+  try {
+    await database.query({ text: "SELECT 1", values: [] });
+    logger.info({ entity: "database", action: "connect" }, "Conexao com banco estabelecida com sucesso");
+
+    app.listen(port, () => {
+      logger.info({ port, nodeEnv: process.env.NODE_ENV || "development" }, "Servidor iniciado com sucesso");
+      logger.info({ path: "/docs", port }, "Documentacao da API disponivel");
+    });
+  } catch (err) {
+    logger.error({ err, entity: "application", action: "startup" }, "Falha critica na inicializacao da API");
+    process.exit(1);
+  }
+}
+
+bootstrap();

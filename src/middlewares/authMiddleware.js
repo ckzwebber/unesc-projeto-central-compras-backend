@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 const AppError = require("../errors/appError");
 const dotenv = require("dotenv");
+const logger = require("../lib/logger");
 
 dotenv.config();
 
@@ -83,16 +84,54 @@ const authenticate = (req, res, next) => {
     return next();
   } catch (error) {
     if (error instanceof AppError) {
+      if (error.statusCode === 401 || error.statusCode === 403) {
+        logger.warn(
+          {
+            method: req.method,
+            path: req.originalUrl,
+            ip: req.ip,
+            role: req.user?.funcao || req.userFuncao,
+          },
+          "Acesso negado na autenticacao",
+        );
+      }
       return next(error);
     }
 
     if (error.name === "TokenExpiredError") {
+      logger.warn(
+        {
+          method: req.method,
+          path: req.originalUrl,
+          ip: req.ip,
+          role: req.user?.funcao || req.userFuncao,
+        },
+        "Token expirado",
+      );
       return next(new AppError("Token expirado", 401));
     }
     if (error.name === "JsonWebTokenError") {
+      logger.warn(
+        {
+          method: req.method,
+          path: req.originalUrl,
+          ip: req.ip,
+          role: req.user?.funcao || req.userFuncao,
+        },
+        "Token invalido",
+      );
       return next(new AppError("Token inválido", 401));
     }
 
+    logger.warn(
+      {
+        method: req.method,
+        path: req.originalUrl,
+        ip: req.ip,
+        role: req.user?.funcao || req.userFuncao,
+      },
+      "Falha de autenticacao",
+    );
     return next(new AppError("Erro na autenticação", 401));
   }
 };

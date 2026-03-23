@@ -1,4 +1,5 @@
 const FornecedoresService = require("../services/fornecedoresService");
+const logger = require("../lib/logger");
 
 class FornecedoresController {
   constructor() {
@@ -23,18 +24,47 @@ class FornecedoresController {
   }
 
   async create(req, res) {
+    logger.info(
+      {
+        userId: req.user?.id,
+        role: req.user?.funcao,
+        entity: "fornecedor",
+        action: "create",
+      },
+      "Inicio da criacao de fornecedor",
+    );
     const result = await this.fornecedoresService.create(req.body);
     res.status(201).json(result);
   }
 
   async update(req, res) {
     const { id } = req.params;
+    logger.info(
+      {
+        userId: req.user?.id,
+        role: req.user?.funcao,
+        entity: "fornecedor",
+        entityId: id,
+        action: "update",
+      },
+      "Inicio da atualizacao de fornecedor",
+    );
     const result = await this.fornecedoresService.update(id, req.body, req.user.id, req.user.funcao);
     res.status(200).json(result);
   }
 
   async delete(req, res) {
     const { id } = req.params;
+    logger.info(
+      {
+        userId: req.user?.id,
+        role: req.user?.funcao,
+        entity: "fornecedor",
+        entityId: id,
+        action: "delete",
+      },
+      "Inicio da exclusao de fornecedor",
+    );
     const result = await this.fornecedoresService.delete(id, req.user.id, req.user.funcao);
     res.status(200).json(result);
   }

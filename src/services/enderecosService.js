@@ -2,12 +2,14 @@ const EnderecosModel = require("../models/enderecosModel");
 const DefaultResponseDto = require("../dtos/defaultResponse.dto");
 const AppError = require("../errors/appError");
 const { createEnderecoSchema, updateEnderecoSchema, uuidSchema, cepSchema } = require("../validations/enderecoValidation");
+const instrumentService = require("../lib/instrumentService");
 
 const { v4: uuidv4 } = require("uuid");
 
 class EnderecosService {
   constructor() {
     this.enderecosModel = new EnderecosModel();
+    instrumentService(this, "endereco");
   }
 
   async getAll() {

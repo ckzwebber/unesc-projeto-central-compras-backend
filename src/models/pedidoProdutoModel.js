@@ -1,4 +1,5 @@
 const database = require("../../db/database");
+const logger = require("../lib/logger");
 
 class PedidoProdutoModel {
   constructor() {
@@ -20,7 +21,7 @@ class PedidoProdutoModel {
       const result = await database.query(query);
       return result.rows;
     } catch (error) {
-      console.error("Erro ao buscar itens do pedido:", error);
+      logger.error({ err: error, entity: "pedidoProduto" }, "Erro ao buscar itens do pedido:");
       throw error;
     }
   }
@@ -34,7 +35,7 @@ class PedidoProdutoModel {
       const result = await database.query(query);
       return result.rows[0] || null;
     } catch (error) {
-      console.error("Erro ao buscar item por ID:", error);
+      logger.error({ err: error, entity: "pedidoProduto" }, "Erro ao buscar item por ID:");
       throw error;
     }
   }
@@ -53,7 +54,7 @@ class PedidoProdutoModel {
       const result = await database.query(query);
       return result.rows[0];
     } catch (error) {
-      console.error("Erro ao criar item do pedido:", error);
+      logger.error({ err: error, entity: "pedidoProduto" }, "Erro ao criar item do pedido:");
       throw error;
     }
   }
@@ -86,7 +87,7 @@ class PedidoProdutoModel {
       const result = await database.query(query);
       return result.rows;
     } catch (error) {
-      console.error("Erro ao criar itens do pedido em lote:", error);
+      logger.error({ err: error, entity: "pedidoProduto" }, "Erro ao criar itens do pedido em lote:");
       throw error;
     }
   }
@@ -105,7 +106,7 @@ class PedidoProdutoModel {
       const result = await database.query(query);
       return result.rows[0] || null;
     } catch (error) {
-      console.error("Erro ao atualizar item do pedido:", error);
+      logger.error({ err: error, entity: "pedidoProduto" }, "Erro ao atualizar item do pedido:");
       throw error;
     }
   }
@@ -119,7 +120,7 @@ class PedidoProdutoModel {
       const result = await database.query(query);
       return result.rowCount > 0;
     } catch (error) {
-      console.error("Erro ao deletar item do pedido:", error);
+      logger.error({ err: error, entity: "pedidoProduto" }, "Erro ao deletar item do pedido:");
       throw error;
     }
   }
@@ -133,7 +134,7 @@ class PedidoProdutoModel {
       const result = await database.query(query);
       return result.rowCount > 0;
     } catch (error) {
-      console.error("Erro ao deletar itens do pedido:", error);
+      logger.error({ err: error, entity: "pedidoProduto" }, "Erro ao deletar itens do pedido:");
       throw error;
     }
   }

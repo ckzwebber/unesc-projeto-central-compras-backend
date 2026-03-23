@@ -1,4 +1,5 @@
 const database = require("../../db/database");
+const logger = require("../lib/logger");
 
 class ProdutosModel {
   constructor() {
@@ -14,7 +15,7 @@ class ProdutosModel {
       const result = await database.query(query);
       return result.rows;
     } catch (error) {
-      console.error("Erro ao buscar produtos:", error);
+      logger.error({ err: error, entity: "produto" }, "Erro ao buscar produtos:");
       throw error;
     }
   }
@@ -28,7 +29,7 @@ class ProdutosModel {
       const result = await database.query(query);
       return result.rows[0] || null;
     } catch (error) {
-      console.error("Erro ao buscar produto por ID:", error);
+      logger.error({ err: error, entity: "produto" }, "Erro ao buscar produto por ID:");
       throw error;
     }
   }
@@ -42,7 +43,7 @@ class ProdutosModel {
       const result = await database.query(query);
       return result.rows[0] || null;
     } catch (error) {
-      console.error("Erro ao buscar produto por nome:", error);
+      logger.error({ err: error, entity: "produto" }, "Erro ao buscar produto por nome:");
       throw error;
     }
   }
@@ -58,7 +59,7 @@ class ProdutosModel {
       const result = await database.query(query);
       return result.rows[0];
     } catch (error) {
-      console.error("Erro ao criar produto:", error);
+      logger.error({ err: error, entity: "produto" }, "Erro ao criar produto:");
       throw error;
     }
   }
@@ -77,7 +78,7 @@ class ProdutosModel {
       const result = await database.query(query);
       return result.rows[0] || null;
     } catch (error) {
-      console.error("Erro ao atualizar produto:", error);
+      logger.error({ err: error, entity: "produto" }, "Erro ao atualizar produto:");
       throw error;
     }
   }
@@ -91,7 +92,7 @@ class ProdutosModel {
       const result = await database.query(query);
       return result.rowCount > 0;
     } catch (error) {
-      console.error("Erro ao deletar produto:", error);
+      logger.error({ err: error, entity: "produto" }, "Erro ao deletar produto:");
       throw error;
     }
   }
@@ -105,7 +106,7 @@ class ProdutosModel {
       const result = await database.query(query);
       return result.rows;
     } catch (error) {
-      console.error("Erro ao buscar produtos por fornecedor:", error);
+      logger.error({ err: error, entity: "produto" }, "Erro ao buscar produtos por fornecedor:");
       throw error;
     }
   }
@@ -119,7 +120,7 @@ class ProdutosModel {
       const result = await database.query(query);
       return result.rows[0] || null;
     } catch (error) {
-      console.error("Erro ao atualizar estoque:", error);
+      logger.error({ err: error, entity: "produto" }, "Erro ao atualizar estoque:");
       throw error;
     }
   }

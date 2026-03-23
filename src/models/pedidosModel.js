@@ -1,4 +1,5 @@
 const database = require("../../db/database");
+const logger = require("../lib/logger");
 
 class PedidosModel {
   constructor() {
@@ -30,7 +31,7 @@ class PedidosModel {
       const result = await database.query(query);
       return result.rows;
     } catch (error) {
-      console.error("Erro ao buscar pedidos:", error);
+      logger.error({ err: error, entity: "pedido" }, "Erro ao buscar pedidos:");
       throw error;
     }
   }
@@ -57,7 +58,7 @@ class PedidosModel {
       const result = await database.query(query);
       return result.rows[0] || null;
     } catch (error) {
-      console.error("Erro ao buscar pedido por ID:", error);
+      logger.error({ err: error, entity: "pedido" }, "Erro ao buscar pedido por ID:");
       throw error;
     }
   }
@@ -85,7 +86,7 @@ class PedidosModel {
       const result = await database.query(query);
       return result.rows;
     } catch (error) {
-      console.error("Erro ao buscar pedidos por usuário:", error);
+      logger.error({ err: error, entity: "pedido" }, "Erro ao buscar pedidos por usuário:");
       throw error;
     }
   }
@@ -113,7 +114,7 @@ class PedidosModel {
       const result = await database.query(query);
       return result.rows;
     } catch (error) {
-      console.error("Erro ao buscar pedidos por loja:", error);
+      logger.error({ err: error, entity: "pedido" }, "Erro ao buscar pedidos por loja:");
       throw error;
     }
   }
@@ -141,7 +142,7 @@ class PedidosModel {
       const result = await database.query(query);
       return result.rows;
     } catch (error) {
-      console.error("Erro ao buscar pedidos por status:", error);
+      logger.error({ err: error, entity: "pedido" }, "Erro ao buscar pedidos por status:");
       throw error;
     }
   }
@@ -169,7 +170,7 @@ class PedidosModel {
       const result = await database.query(query);
       return result.rows;
     } catch (error) {
-      console.error("Erro ao buscar pedidos por data:", error);
+      logger.error({ err: error, entity: "pedido" }, "Erro ao buscar pedidos por data:");
       throw error;
     }
   }
@@ -185,7 +186,7 @@ class PedidosModel {
       const result = await database.query(query);
       return result.rows[0];
     } catch (error) {
-      console.error("Erro ao criar pedido:", error);
+      logger.error({ err: error, entity: "pedido" }, "Erro ao criar pedido:");
       throw error;
     }
   }
@@ -204,7 +205,7 @@ class PedidosModel {
       const result = await database.query(query);
       return result.rows[0] || null;
     } catch (error) {
-      console.error("Erro ao atualizar pedido:", error);
+      logger.error({ err: error, entity: "pedido" }, "Erro ao atualizar pedido:");
       throw error;
     }
   }
@@ -218,7 +219,7 @@ class PedidosModel {
       const result = await database.query(query);
       return result.rowCount > 0;
     } catch (error) {
-      console.error("Erro ao deletar pedido:", error);
+      logger.error({ err: error, entity: "pedido" }, "Erro ao deletar pedido:");
       throw error;
     }
   }
@@ -244,7 +245,7 @@ class PedidosModel {
       const result = await database.query(query);
       return result.rows;
     } catch (error) {
-      console.error("Erro ao buscar pedidos por fornecedor:", error);
+      logger.error({ err: error, entity: "pedido" }, "Erro ao buscar pedidos por fornecedor:");
       throw error;
     }
   }

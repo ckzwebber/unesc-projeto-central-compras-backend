@@ -3,10 +3,12 @@ const DefaultResponseDto = require("../dtos/defaultResponse.dto");
 const AppError = require("../errors/appError");
 const { v4: uuidv4 } = require("uuid");
 const { createCondicaoComercialSchema, updateCondicaoComercialSchema } = require("../validations/condicaoComercialValidation");
+const instrumentService = require("../lib/instrumentService");
 
 class CondicaoComercialService {
   constructor() {
     this.condicaoComercialModel = new CondicaoComercialModel();
+    instrumentService(this, "condicao-comercial");
   }
 
   async getByFornecedor(fornecedor_id) {

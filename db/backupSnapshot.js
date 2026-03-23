@@ -2,6 +2,7 @@ const dotenv = require("dotenv");
 const fs = require("fs");
 const path = require("path");
 const { execFile } = require("child_process");
+const logger = require("../src/lib/logger");
 
 dotenv.config();
 
@@ -115,10 +116,10 @@ async function createSnapshot() {
 
 createSnapshot()
   .then((filePath) => {
-    console.log(`Snapshot criado em: ${filePath}`);
+    logger.info({ entity: "backup", action: "create", filePath }, "Snapshot criado com sucesso");
     process.exit(0);
   })
   .catch((error) => {
-    console.error("Erro ao criar snapshot:", error.message);
+    logger.error({ err: error, entity: "backup", action: "create" }, "Erro ao criar snapshot");
     process.exit(1);
   });

@@ -1,4 +1,5 @@
 const database = require("../../db/database");
+const logger = require("../lib/logger");
 
 class LojasModel {
   constructor() {
@@ -14,7 +15,7 @@ class LojasModel {
       const result = await database.query(query);
       return result.rows;
     } catch (error) {
-      console.error("Erro ao buscar lojas:", error);
+      logger.error({ err: error, entity: "loja" }, "Erro ao buscar lojas:");
       throw error;
     }
   }
@@ -28,7 +29,7 @@ class LojasModel {
       const result = await database.query(query);
       return result.rows[0] || null;
     } catch (error) {
-      console.error("Erro ao buscar loja por ID:", error);
+      logger.error({ err: error, entity: "loja" }, "Erro ao buscar loja por ID:");
       throw error;
     }
   }
@@ -42,7 +43,7 @@ class LojasModel {
       const result = await database.query(query);
       return result.rows[0] || null;
     } catch (error) {
-      console.error("Erro ao buscar loja por CNPJ:", error);
+      logger.error({ err: error, entity: "loja" }, "Erro ao buscar loja por CNPJ:");
       throw error;
     }
   }
@@ -59,7 +60,7 @@ class LojasModel {
       const result = await database.query(query);
       return result.rows;
     } catch (error) {
-      console.error("Erro ao buscar lojas por usuário:", error);
+      logger.error({ err: error, entity: "loja" }, "Erro ao buscar lojas por usuário:");
       throw error;
     }
   }
@@ -76,7 +77,7 @@ class LojasModel {
       const result = await database.query(query);
       return result.rows[0];
     } catch (error) {
-      console.error("Erro ao criar loja:", error);
+      logger.error({ err: error, entity: "loja" }, "Erro ao criar loja:");
       throw error;
     }
   }
@@ -98,7 +99,7 @@ class LojasModel {
       const result = await database.query(query);
       return result.rows[0] || null;
     } catch (error) {
-      console.error("Erro ao atualizar loja:", error);
+      logger.error({ err: error, entity: "loja" }, "Erro ao atualizar loja:");
       throw error;
     }
   }
@@ -114,7 +115,7 @@ class LojasModel {
       const result = await database.query(query);
       return result.rowCount > 0;
     } catch (error) {
-      console.error("Erro ao deletar loja:", error);
+      logger.error({ err: error, entity: "loja" }, "Erro ao deletar loja:");
       throw error;
     }
   }

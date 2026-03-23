@@ -1,4 +1,5 @@
 const database = require("../../db/database");
+const logger = require("../lib/logger");
 
 class CampanhasModel {
   constructor() {
@@ -14,7 +15,7 @@ class CampanhasModel {
       const result = await database.query(query);
       return result.rows;
     } catch (error) {
-      console.error("Erro ao buscar campanhas:", error);
+      logger.error({ err: error, entity: "campanha" }, "Erro ao buscar campanhas:");
       throw error;
     }
   }
@@ -28,7 +29,7 @@ class CampanhasModel {
       const result = await database.query(query);
       return result.rows;
     } catch (error) {
-      console.error("Erro ao buscar campanhas do fornecedor:", error);
+      logger.error({ err: error, entity: "campanha" }, "Erro ao buscar campanhas do fornecedor:");
       throw error;
     }
   }
@@ -42,7 +43,7 @@ class CampanhasModel {
       const result = await database.query(query);
       return result.rows[0] || null;
     } catch (error) {
-      console.error("Erro ao buscar campanha por ID:", error);
+      logger.error({ err: error, entity: "campanha" }, "Erro ao buscar campanha por ID:");
       throw error;
     }
   }
@@ -56,7 +57,7 @@ class CampanhasModel {
       const result = await database.query(query);
       return result.rows[0] || null;
     } catch (error) {
-      console.error("Erro ao buscar campanha por nome:", error);
+      logger.error({ err: error, entity: "campanha" }, "Erro ao buscar campanha por nome:");
       throw error;
     }
   }
@@ -70,7 +71,7 @@ class CampanhasModel {
       const result = await database.query(query);
       return result.rows;
     } catch (error) {
-      console.error("Erro ao buscar campanhas por status:", error);
+      logger.error({ err: error, entity: "campanha" }, "Erro ao buscar campanhas por status:");
       throw error;
     }
   }
@@ -97,7 +98,7 @@ class CampanhasModel {
       const result = await database.query(query);
       return result.rows[0];
     } catch (error) {
-      console.error("Erro ao criar campanha:", error);
+      logger.error({ err: error, entity: "campanha" }, "Erro ao criar campanha:");
       throw error;
     }
   }
@@ -116,7 +117,7 @@ class CampanhasModel {
       const result = await database.query(query);
       return result.rows[0] || null;
     } catch (error) {
-      console.error("Erro ao atualizar campanha:", error);
+      logger.error({ err: error, entity: "campanha" }, "Erro ao atualizar campanha:");
       throw error;
     }
   }
@@ -130,7 +131,7 @@ class CampanhasModel {
       const result = await database.query(query);
       return result.rowCount > 0;
     } catch (error) {
-      console.error("Erro ao deletar campanha:", error);
+      logger.error({ err: error, entity: "campanha" }, "Erro ao deletar campanha:");
       throw error;
     }
   }

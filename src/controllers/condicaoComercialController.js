@@ -1,6 +1,7 @@
 const CondicaoComercialService = require("../services/condicaoComercialService");
 const FornecedoresModel = require("../models/fornecedoresModel");
 const AppError = require("../errors/appError");
+const logger = require("../lib/logger");
 
 class CondicaoComercialController {
   constructor() {
@@ -32,6 +33,15 @@ class CondicaoComercialController {
 
   async create(req, res) {
     const fornecedor_id = await this.getFornecedorIdByUsuarioId(req.user.id);
+    logger.info(
+      {
+        userId: req.user?.id,
+        role: req.user?.funcao,
+        entity: "condicao-comercial",
+        action: "create",
+      },
+      "Inicio da criacao de condicao comercial",
+    );
     const response = await this.condicaoComercialService.create(req.body, fornecedor_id);
     res.status(201).json(response);
   }
@@ -39,6 +49,16 @@ class CondicaoComercialController {
   async update(req, res) {
     const { id } = req.params;
     const fornecedor_id = await this.getFornecedorIdByUsuarioId(req.user.id);
+    logger.info(
+      {
+        userId: req.user?.id,
+        role: req.user?.funcao,
+        entity: "condicao-comercial",
+        entityId: id,
+        action: "update",
+      },
+      "Inicio da atualizacao de condicao comercial",
+    );
     const response = await this.condicaoComercialService.update(id, req.body, fornecedor_id);
     res.status(200).json(response);
   }
@@ -46,6 +66,16 @@ class CondicaoComercialController {
   async delete(req, res) {
     const { id } = req.params;
     const fornecedor_id = await this.getFornecedorIdByUsuarioId(req.user.id);
+    logger.info(
+      {
+        userId: req.user?.id,
+        role: req.user?.funcao,
+        entity: "condicao-comercial",
+        entityId: id,
+        action: "delete",
+      },
+      "Inicio da exclusao de condicao comercial",
+    );
     const response = await this.condicaoComercialService.delete(id, fornecedor_id);
     res.status(200).json(response);
   }

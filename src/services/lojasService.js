@@ -4,10 +4,12 @@ const Loja = require("../entities/loja");
 const AppError = require("../errors/appError");
 const DefaultResponseDto = require("../dtos/defaultResponse.dto");
 const { createLojaSchema, updateLojaSchema, uuidSchema, cnpjSchema } = require("../validations/lojaValidation");
+const instrumentService = require("../lib/instrumentService");
 
 class LojasService {
   constructor() {
     this.lojasModel = new LojasModel();
+    instrumentService(this, "loja");
   }
 
   async getAll() {

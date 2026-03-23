@@ -1,4 +1,5 @@
 const database = require("../../db/database");
+const logger = require("../lib/logger");
 
 class FornecedoresModel {
   constructor() {
@@ -14,7 +15,7 @@ class FornecedoresModel {
       const result = await database.query(query);
       return result.rows;
     } catch (error) {
-      console.error("Erro ao buscar fornecedores:", error);
+      logger.error({ err: error, entity: "fornecedor" }, "Erro ao buscar fornecedores:");
       throw error;
     }
   }
@@ -28,7 +29,7 @@ class FornecedoresModel {
       const result = await database.query(query);
       return result.rows[0] || null;
     } catch (error) {
-      console.error("Erro ao buscar fornecedor por ID:", error);
+      logger.error({ err: error, entity: "fornecedor" }, "Erro ao buscar fornecedor por ID:");
       throw error;
     }
   }
@@ -42,7 +43,7 @@ class FornecedoresModel {
       const result = await database.query(query);
       return result.rows[0] || null;
     } catch (error) {
-      console.error("Erro ao buscar fornecedor por CNPJ:", error);
+      logger.error({ err: error, entity: "fornecedor" }, "Erro ao buscar fornecedor por CNPJ:");
       throw error;
     }
   }
@@ -59,7 +60,7 @@ class FornecedoresModel {
       const result = await database.query(query);
       return result.rows;
     } catch (error) {
-      console.error("Erro ao buscar fornecedores por usuário:", error);
+      logger.error({ err: error, entity: "fornecedor" }, "Erro ao buscar fornecedores por usuário:");
       throw error;
     }
   }
@@ -84,7 +85,7 @@ class FornecedoresModel {
       const result = await database.query(query);
       return result.rows[0];
     } catch (error) {
-      console.error("Erro ao criar fornecedor:", error);
+      logger.error({ err: error, entity: "fornecedor" }, "Erro ao criar fornecedor:");
       throw error;
     }
   }
@@ -103,7 +104,7 @@ class FornecedoresModel {
       const result = await database.query(query);
       return result.rows[0] || null;
     } catch (error) {
-      console.error("Erro ao atualizar fornecedor:", error);
+      logger.error({ err: error, entity: "fornecedor" }, "Erro ao atualizar fornecedor:");
       throw error;
     }
   }
@@ -117,7 +118,7 @@ class FornecedoresModel {
       const result = await database.query(query);
       return result.rowCount > 0;
     } catch (error) {
-      console.error("Erro ao deletar fornecedor:", error);
+      logger.error({ err: error, entity: "fornecedor" }, "Erro ao deletar fornecedor:");
       throw error;
     }
   }

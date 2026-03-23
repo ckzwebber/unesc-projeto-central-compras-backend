@@ -1,4 +1,5 @@
 const UsuariosService = require("../services/usuariosService");
+const logger = require("../lib/logger");
 const usuariosService = new UsuariosService();
 
 const isProduction = process.env.NODE_ENV === "production";
@@ -28,6 +29,15 @@ const clearAuthCookie = (res) => {
 class UsuariosController {
   async login(req, res) {
     const { email, senha } = req.body;
+    logger.info(
+      {
+        userId: req.user?.id,
+        role: req.user?.funcao,
+        entity: "usuario",
+        action: "login",
+      },
+      "Inicio de autenticacao de usuario",
+    );
     const response = await usuariosService.login(email, senha);
     setAuthCookie(res, response.data.token);
     response.data = { user: response.data.user };
@@ -58,6 +68,15 @@ class UsuariosController {
 
   async create(req, res) {
     const usuario = req.body;
+    logger.info(
+      {
+        userId: req.user?.id,
+        role: req.user?.funcao,
+        entity: "usuario",
+        action: "create",
+      },
+      "Inicio da criacao de usuario",
+    );
     const response = await usuariosService.create(usuario);
     res.status(201).json(response);
   }
@@ -67,6 +86,16 @@ class UsuariosController {
     const usuario = req.body;
     const requestUserId = req.user.id;
     const userFuncao = req.user.funcao;
+    logger.info(
+      {
+        userId: requestUserId,
+        role: userFuncao,
+        entity: "usuario",
+        entityId: id,
+        action: "update",
+      },
+      "Inicio da atualizacao de usuario",
+    );
     const response = await usuariosService.update(id, usuario, requestUserId, userFuncao);
     res.status(200).json(response);
   }
@@ -75,6 +104,16 @@ class UsuariosController {
     const { id } = req.params;
     const passwordData = req.body;
     const requestUserId = req.user.id;
+    logger.info(
+      {
+        userId: requestUserId,
+        role: req.user.funcao,
+        entity: "usuario",
+        entityId: id,
+        action: "update-password",
+      },
+      "Inicio da atualizacao de senha",
+    );
     const response = await usuariosService.updatePassword(id, passwordData, requestUserId);
     res.status(200).json(response);
   }
@@ -83,11 +122,30 @@ class UsuariosController {
     const { id } = req.params;
     const requestUserId = req.user.id;
     const userFuncao = req.user.funcao;
+    logger.info(
+      {
+        userId: requestUserId,
+        role: userFuncao,
+        entity: "usuario",
+        entityId: id,
+        action: "delete",
+      },
+      "Inicio da exclusao de usuario",
+    );
     const response = await usuariosService.delete(id, requestUserId, userFuncao);
     res.status(200).json(response);
   }
 
   async logout(req, res) {
+    logger.info(
+      {
+        userId: req.user?.id,
+        role: req.user?.funcao,
+        entity: "usuario",
+        action: "logout",
+      },
+      "Logout solicitado",
+    );
     clearAuthCookie(res);
 
     res.status(200).json({
