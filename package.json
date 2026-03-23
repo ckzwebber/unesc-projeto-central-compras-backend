@@ -20,6 +20,7 @@
     "url": "https://github.com/ArthurLumertzG/projeto-central-compras/issues"
   },
   "homepage": "https://github.com/ArthurLumertzG/projeto-central-compras#readme",
+  "packageManager": "pnpm@10.15.1",
   "description": "",
   "dependencies": {
     "bcrypt": "^6.0.0",
