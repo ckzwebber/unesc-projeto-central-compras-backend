@@ -1,5 +1,5 @@
 const DefaultResponseDto = require("../dtos/defaultResponse.dto");
-const AppError = require("../errors/AppError");
+const AppError = require("../errors/appError");
 
 function errorHandler(err, req, res, next) {
   console.error(err);

@@ -1,6 +1,6 @@
 const CondicaoComercialService = require("../services/condicaoComercialService");
 const FornecedoresModel = require("../models/fornecedoresModel");
-const AppError = require("../errors/AppError");
+const AppError = require("../errors/appError");
 
 class CondicaoComercialController {
   constructor() {

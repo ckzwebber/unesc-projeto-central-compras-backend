@@ -3,7 +3,7 @@ const FornecedoresModel = require("../models/fornecedoresModel");
 const ProdutosService = require("./produtosService");
 const PedidosService = require("./pedidosService");
 const Fornecedor = require("../entities/fornecedor");
-const AppError = require("../errors/AppError");
+const AppError = require("../errors/appError");
 const DefaultResponseDto = require("../dtos/defaultResponse.dto");
 const { createFornecedorSchema, updateFornecedorSchema, uuidSchema, cnpjSchema } = require("../validations/fornecedorValidation");
 

@@ -1,7 +1,7 @@
 const { v4: uuidv4 } = require("uuid");
 const LojasModel = require("../models/lojasModel");
 const Loja = require("../entities/loja");
-const AppError = require("../errors/AppError");
+const AppError = require("../errors/appError");
 const DefaultResponseDto = require("../dtos/defaultResponse.dto");
 const { createLojaSchema, updateLojaSchema, uuidSchema, cnpjSchema } = require("../validations/lojaValidation");
 

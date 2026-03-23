@@ -1,4 +1,4 @@
-const AppError = require("../errors/AppError");
+const AppError = require("../errors/appError");
 
 const supplierAuth = (req, res, next) => {
   if (!req.userId) {

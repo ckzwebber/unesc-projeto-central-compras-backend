@@ -1,6 +1,6 @@
 const CampanhasService = require("../services/campanhaService");
 const FornecedoresModel = require("../models/fornecedoresModel");
-const AppError = require("../errors/AppError");
+const AppError = require("../errors/appError");
 
 class CampanhasController {
   constructor() {

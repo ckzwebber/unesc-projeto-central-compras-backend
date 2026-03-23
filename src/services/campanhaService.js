@@ -1,6 +1,6 @@
 const CampanhasModel = require("../models/campanhaModel");
 const DefaultResponseDto = require("../dtos/defaultResponse.dto");
-const AppError = require("../errors/AppError");
+const AppError = require("../errors/appError");
 const { v4: uuidv4 } = require("uuid");
 const { createCampanhaSchema, updateCampanhaSchema, uuidSchema, statusSchema } = require("../validations/campanhaValidation");
 

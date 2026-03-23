@@ -1,6 +1,6 @@
 const CondicaoComercialModel = require("../models/condicaoComercialModel");
 const DefaultResponseDto = require("../dtos/defaultResponse.dto");
-const AppError = require("../errors/AppError");
+const AppError = require("../errors/appError");
 const { v4: uuidv4 } = require("uuid");
 const { createCondicaoComercialSchema, updateCondicaoComercialSchema } = require("../validations/condicaoComercialValidation");
 
