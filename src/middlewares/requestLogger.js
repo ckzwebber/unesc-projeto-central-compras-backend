@@ -1,5 +1,6 @@
 const pinoHttp = require("pino-http");
 const logger = require("../lib/logger");
+const ignoredPaths = ["/favicon.ico", "/robots.txt", "/apple-touch-icon.png"];
 
 const requestLogger = pinoHttp({
   logger,
@@ -7,6 +8,7 @@ const requestLogger = pinoHttp({
     ignore: (req) => req.url === "/health" || req.url.startsWith("/health?"),
   },
   customLogLevel(req, res, err) {
+    if (ignoredPaths.includes(req.url?.split("?")[0])) return "silent";
     if (err || res.statusCode >= 500) return "error";
     if (res.statusCode >= 400) return "warn";
     return "info";

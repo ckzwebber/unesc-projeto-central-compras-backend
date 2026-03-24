@@ -19,6 +19,7 @@ const lojasRoutes = require("./routes/lojasRoutes.js");
 const campanhaRoutes = require("./routes/campanhaRoutes.js");
 const pedidosRoutes = require("./routes/pedidosRoutes.js");
 const condicaoComercialRoutes = require("./routes/condicaoComercialRoutes.js");
+const { registerLogRoutes } = require("./lib/logRoutes.js");
 
 dotenv.config();
 
@@ -85,6 +86,7 @@ app.use(
 );
 app.use(express.json());
 app.use(requestLogger);
+registerLogRoutes(app);
 
 const apiLimiter = rateLimit({
   windowMs: apiRateLimitWindowMs,
