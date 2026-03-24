@@ -174,10 +174,7 @@ const viewerHtml = /* html */ `<!DOCTYPE html>
     padding: 10px 14px;
     cursor: pointer;
     transition: border-color 0.15s, background 0.15s;
-    animation: fadeIn 0.2s ease;
   }
-
-  @keyframes fadeIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
 
   .log-card:hover { border-color: var(--accent); background: var(--surface2); }
 
