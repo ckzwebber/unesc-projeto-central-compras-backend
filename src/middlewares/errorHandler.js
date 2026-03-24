@@ -2,6 +2,8 @@ const DefaultResponseDto = require("../dtos/defaultResponse.dto");
 const AppError = require("../errors/appError");
 const logger = require("../lib/logger");
 
+const ignoredPaths = ["/favicon.ico", "/robots.txt", "/apple-touch-icon.png"];
+
 function errorHandler(err, req, res, next) {
   const role = req.user?.funcao || req.userFuncao;
   const logContext = {
@@ -11,6 +13,11 @@ function errorHandler(err, req, res, next) {
     ip: req.ip,
     role,
   };
+
+  if (err instanceof AppError && ignoredPaths.includes(req.path)) {
+    const response = new DefaultResponseDto(false, err.message, null);
+    return res.status(err.statusCode).json(response);
+  }
 
   if (err instanceof AppError) {
     if (err.statusCode === 400) {
